@@ -24,6 +24,8 @@ def parse(source):
         ast = int(ast)
     elif ast.startswith('('):
         close_paren = find_matching_paren(ast)
+        if close_paren != len(ast) - 1:
+            raise LispError("Expected EOF")
         ast = [parse(expr) for expr in split_exps(ast[1:close_paren])]
 
     return ast
