@@ -16,6 +16,11 @@ def parse(source):
 
     ast = remove_comments(source)
 
+    if ast == '#t':
+        ast = True;
+    elif ast == '#f':
+        ast = False;
+
     return ast
 
 ##
