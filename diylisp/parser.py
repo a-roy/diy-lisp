@@ -28,6 +28,8 @@ def parse(source):
         if close_paren != len(ast) - 1:
             raise LispError("Expected EOF")
         ast = [parse(expr) for expr in split_exps(ast[1:close_paren])]
+    elif ast.startswith('\''):
+        ast = ['quote', parse(ast[1:])]
 
     return ast
 
