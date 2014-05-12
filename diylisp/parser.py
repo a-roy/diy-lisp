@@ -22,6 +22,9 @@ def parse(source):
         ast = False
     elif ast.strip('-').isdigit():
         ast = int(ast)
+    elif ast.startswith('('):
+        close_paren = find_matching_paren(ast)
+        ast = split_exps(ast[1:close_paren])
 
     return ast
 
