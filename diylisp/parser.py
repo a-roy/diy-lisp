@@ -17,9 +17,11 @@ def parse(source):
     ast = remove_comments(source)
 
     if ast == '#t':
-        ast = True;
+        ast = True
     elif ast == '#f':
-        ast = False;
+        ast = False
+    elif ast.strip('-').isdigit():
+        ast = int(ast)
 
     return ast
 
