@@ -15,12 +15,13 @@ def parse(source):
     into the corresponding Abstract Syntax Tree."""
 
     ast = remove_comments(source)
+    ast = ast.strip()
 
     if ast == '#t':
         ast = True
     elif ast == '#f':
         ast = False
-    elif ast.strip('-').isdigit():
+    elif ast.lstrip('-').isdigit():
         ast = int(ast)
     elif ast.startswith('('):
         close_paren = find_matching_paren(ast)
