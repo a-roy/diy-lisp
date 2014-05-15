@@ -4,6 +4,7 @@ from types import Environment, LispError, Closure
 from ast import is_boolean, is_atom, is_symbol, is_list, is_closure, is_integer
 from asserts import assert_exp_length, assert_valid_definition, assert_boolean
 from parser import unparse
+import operator
 
 """
 This is the Evaluator module. The `evaluate` function below is the heart
@@ -14,7 +15,13 @@ making your work a bit easier. (We're supposed to get through this thing
 in a day, after all.)
 """
 
-math_operators = ['+', '-', '/', '*', 'mod', '>']
+math_operators = {
+    '+' : operator.add,
+    '-' : operator.sub,
+    '/' : operator.floordiv,
+    '*' : operator.mul,
+    'mod' : operator.mod,
+    '>' : operator.gt}
 
 def evaluate(ast, env):
     """Evaluate an Abstract Syntax Tree in the specified environment."""
@@ -31,18 +38,6 @@ def evaluate(ast, env):
         args = [evaluate(x, env) for x in ast[1:]]
         if not (is_integer(args[0]) and is_integer(args[1])):
             raise LispError('Arguments must be integers.')
-
-        if ast[0] == '+':
-            return args[0] + args[1]
-        elif ast[0] == '-':
-            return args[0] - args[1]
-        elif ast[0] == '/':
-            return args[0] // args[1]
-        elif ast[0] == '*':
-            return args[0] * args[1]
-        elif ast[0] == 'mod':
-            return args[0] % args[1]
-        elif ast[0] == '>':
-            return args[0] > args[1]
+        return math_operators[ast[0]](args[0], args[1])
     else:
         raise LispError('Symbol Unknown: %s' % ast[0])
