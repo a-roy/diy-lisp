@@ -20,5 +20,7 @@ def evaluate(ast, env):
         return ast
     elif ast[0] == 'quote':
         return ast[1]
+    elif ast[0] == 'atom':
+        return is_atom(evaluate(ast[1], env))
 
     raise NotImplementedError("DIY")
