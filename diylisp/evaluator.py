@@ -18,5 +18,7 @@ def evaluate(ast, env):
     """Evaluate an Abstract Syntax Tree in the specified environment."""
     if is_boolean(ast) or is_integer(ast):
         return ast
+    elif ast[0] == 'quote':
+        return ast[1]
 
     raise NotImplementedError("DIY")
