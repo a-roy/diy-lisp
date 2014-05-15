@@ -16,12 +16,12 @@ in a day, after all.)
 """
 
 math_operators = {
-    '+' : operator.add,
-    '-' : operator.sub,
-    '/' : operator.floordiv,
-    '*' : operator.mul,
-    'mod' : operator.mod,
-    '>' : operator.gt}
+        '+' : operator.add,
+        '-' : operator.sub,
+        '/' : operator.floordiv,
+        '*' : operator.mul,
+        'mod' : operator.mod,
+        '>' : operator.gt}
 
 def evaluate(ast, env):
     """Evaluate an Abstract Syntax Tree in the specified environment."""
