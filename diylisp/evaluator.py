@@ -25,5 +25,18 @@ def evaluate(ast, env):
     elif ast[0] == 'eq':
         exprs = [evaluate(x, env) for x in ast[1:]]
         return is_atom(exprs[0]) and evaluate(exprs[0], env) == evaluate(exprs[1], env)
-
-    raise NotImplementedError("DIY")
+    else:
+        if ast[0] == '+':
+            return evaluate(ast[1], env) + evaluate(ast[2], env)
+        elif ast[0] == '-':
+            return evaluate(ast[1], env) - evaluate(ast[2], env)
+        elif ast[0] == '/':
+            return evaluate(ast[1], env) / evaluate(ast[2], env)
+        elif ast[0] == '*':
+            return evaluate(ast[1], env) * evaluate(ast[2], env)
+        elif ast[0] == 'mod':
+            return evaluate(ast[1], env) % evaluate(ast[2], env)
+        elif ast[0] == '>':
+            return evaluate(ast[1], env) > evaluate(ast[2], env)
+        else:
+            raise LispError('Symbol Unknown: %s' % ast[0])
