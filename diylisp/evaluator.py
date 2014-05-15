@@ -39,5 +39,9 @@ def evaluate(ast, env):
         if not (is_integer(args[0]) and is_integer(args[1])):
             raise LispError('Arguments must be integers.')
         return math_operators[ast[0]](args[0], args[1])
-    else:
-        raise LispError('Symbol Unknown: %s' % ast[0])
+    elif ast[0] == 'if':
+        if (evaluate(ast[1], env)):
+            return evaluate(ast[2], env)
+        else:
+            return evaluate(ast[3], env)
+    raise LispError('Symbol Unknown: %s' % ast[0])
