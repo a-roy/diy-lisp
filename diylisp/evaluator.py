@@ -34,7 +34,7 @@ def evaluate(ast, env):
         elif ast[0] == '-':
             return evaluate(ast[1], env) - evaluate(ast[2], env)
         elif ast[0] == '/':
-            return evaluate(ast[1], env) / evaluate(ast[2], env)
+            return evaluate(ast[1], env) // evaluate(ast[2], env)
         elif ast[0] == '*':
             return evaluate(ast[1], env) * evaluate(ast[2], env)
         elif ast[0] == 'mod':
