@@ -16,11 +16,14 @@ in a day, after all.)
 
 def evaluate(ast, env):
     """Evaluate an Abstract Syntax Tree in the specified environment."""
-    if is_boolean(ast) or is_integer(ast):
+    if is_boolean(ast) or is_integer(ast) or is_symbol(ast):
         return ast
     elif ast[0] == 'quote':
         return ast[1]
     elif ast[0] == 'atom':
         return is_atom(evaluate(ast[1], env))
+    elif ast[0] == 'eq':
+        exprs = [evaluate(x, env) for x in ast[1:]]
+        return is_atom(exprs[0]) and evaluate(exprs[0], env) == evaluate(exprs[1], env)
 
     raise NotImplementedError("DIY")
