@@ -33,7 +33,7 @@ def evaluate(ast, env):
         return is_atom(evaluate(ast[1], env))
     elif ast[0] == 'eq':
         args = [evaluate(x, env) for x in ast[1:]]
-        return is_atom(args[0]) and evaluate(args[0], env) == evaluate(args[1], env)
+        return is_atom(args[0]) and args[0] == args[1]
     elif ast[0] in math_operators:
         args = [evaluate(x, env) for x in ast[1:]]
         if not (is_integer(args[0]) and is_integer(args[1])):
