@@ -25,23 +25,24 @@ def evaluate(ast, env):
     elif ast[0] == 'atom':
         return is_atom(evaluate(ast[1], env))
     elif ast[0] == 'eq':
-        exprs = [evaluate(x, env) for x in ast[1:]]
-        return is_atom(exprs[0]) and evaluate(exprs[0], env) == evaluate(exprs[1], env)
+        args = [evaluate(x, env) for x in ast[1:]]
+        return is_atom(args[0]) and evaluate(args[0], env) == evaluate(args[1], env)
     elif ast[0] in math_operators:
-        if not (is_integer(evaluate(ast[1], env)) and is_integer(evaluate(ast[2], env))):
+        args = [evaluate(x, env) for x in ast[1:]]
+        if not (is_integer(args[0]) and is_integer(args[1])):
             raise LispError('Arguments must be integers.')
 
         if ast[0] == '+':
-            return evaluate(ast[1], env) + evaluate(ast[2], env)
+            return args[0] + args[1]
         elif ast[0] == '-':
-            return evaluate(ast[1], env) - evaluate(ast[2], env)
+            return args[0] - args[1]
         elif ast[0] == '/':
-            return evaluate(ast[1], env) // evaluate(ast[2], env)
+            return args[0] // args[1]
         elif ast[0] == '*':
-            return evaluate(ast[1], env) * evaluate(ast[2], env)
+            return args[0] * args[1]
         elif ast[0] == 'mod':
-            return evaluate(ast[1], env) % evaluate(ast[2], env)
+            return args[0] % args[1]
         elif ast[0] == '>':
-            return evaluate(ast[1], env) > evaluate(ast[2], env)
+            return args[0] > args[1]
     else:
         raise LispError('Symbol Unknown: %s' % ast[0])
