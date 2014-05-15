@@ -14,6 +14,8 @@ making your work a bit easier. (We're supposed to get through this thing
 in a day, after all.)
 """
 
+math_operators = ['+', '-', '/', '*', 'mod', '>']
+
 def evaluate(ast, env):
     """Evaluate an Abstract Syntax Tree in the specified environment."""
     if is_boolean(ast) or is_integer(ast) or is_symbol(ast):
@@ -25,7 +27,7 @@ def evaluate(ast, env):
     elif ast[0] == 'eq':
         exprs = [evaluate(x, env) for x in ast[1:]]
         return is_atom(exprs[0]) and evaluate(exprs[0], env) == evaluate(exprs[1], env)
-    else:
+    elif ast[0] in math_operators:
         if not (is_integer(evaluate(ast[1], env)) and is_integer(evaluate(ast[2], env))):
             raise LispError('Arguments must be integers.')
 
@@ -41,5 +43,5 @@ def evaluate(ast, env):
             return evaluate(ast[1], env) % evaluate(ast[2], env)
         elif ast[0] == '>':
             return evaluate(ast[1], env) > evaluate(ast[2], env)
-        else:
-            raise LispError('Symbol Unknown: %s' % ast[0])
+    else:
+        raise LispError('Symbol Unknown: %s' % ast[0])
