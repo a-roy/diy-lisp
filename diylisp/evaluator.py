@@ -26,7 +26,7 @@ def evaluate(ast, env):
         exprs = [evaluate(x, env) for x in ast[1:]]
         return is_atom(exprs[0]) and evaluate(exprs[0], env) == evaluate(exprs[1], env)
     else:
-        if not (is_integer(ast[1]) and is_integer(ast[2])):
+        if not (is_integer(evaluate(ast[1], env)) and is_integer(evaluate(ast[2], env))):
             raise LispError('Arguments must be integers.')
 
         if ast[0] == '+':
