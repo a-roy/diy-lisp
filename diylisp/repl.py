@@ -27,7 +27,10 @@ def repl():
     print
 
     env = Environment()
-    interpret_file(join(dirname(relpath(__file__)), '..', 'stdlib.diy'), env)
+    try:
+        interpret_file(join(dirname(relpath(__file__)), '..', 'stdlib.diy'), env)
+    except LispError:
+        pass
     while True:
         try:
             source = read_expression()
