@@ -28,7 +28,7 @@ def evaluate(ast, env):
     if is_boolean(ast) or is_integer(ast):
         return ast
     elif is_symbol(ast):
-        return env.lookup(ast)
+        return evaluate(env.lookup(ast), env)
     elif ast[0] == 'quote':
         return ast[1]
     elif ast[0] == 'atom':
