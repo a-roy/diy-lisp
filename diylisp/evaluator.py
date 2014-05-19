@@ -29,10 +29,9 @@ def evaluate(ast, env):
         return ast
     elif is_symbol(ast):
         return env.lookup(ast)
-    elif is_closure(ast[0]):
-        args = [evaluate(x, env) for x in ast[1:]]
-        bindings = dict(zip(ast[0].params, args))
-        return evaluate(ast[0].body, ast[0].env.extend(bindings))
+
+    if not is_atom(ast[0]):
+        ast[0] = evaluate(ast[0], env)
     elif ast[0] == 'quote':
         return ast[1]
     elif ast[0] == 'atom':
@@ -64,4 +63,11 @@ def evaluate(ast, env):
             raise LispError('Expected list: %s' % ast[1])
         return Closure(env, ast[1], ast[2])
 
-    raise LispError('Symbol Unknown: %s' % ast[0])
+    if is_symbol(ast[0]):
+        ast[0] = env.lookup(ast[0])
+    if is_closure(ast[0]):
+        args = [evaluate(x, env) for x in ast[1:]]
+        bindings = dict(zip(ast[0].params, args))
+        return evaluate(ast[0].body, ast[0].env.extend(bindings))
+
+    raise LispError('not a function: %s' % unparse(ast[0]))
