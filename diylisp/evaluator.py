@@ -31,8 +31,8 @@ def evaluate(ast, env):
         return env.lookup(ast)
     elif is_closure(ast[0]):
         args = [evaluate(x, env) for x in ast[1:]]
-        return evaluate(ast[0].body,
-                ast[0].env.extend(dict(zip(ast[0].params, args))))
+        bindings = dict(zip(ast[0].params, args))
+        return evaluate(ast[0].body, ast[0].env.extend(bindings))
     elif ast[0] == 'quote':
         return ast[1]
     elif ast[0] == 'atom':
