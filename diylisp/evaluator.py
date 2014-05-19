@@ -46,4 +46,8 @@ def evaluate(ast, env):
             return evaluate(ast[2], env)
         else:
             return evaluate(ast[3], env)
+    elif ast[0] == 'define':
+        env.set(ast[1], ast[2])
+        return
+
     raise LispError('Symbol Unknown: %s' % ast[0])
