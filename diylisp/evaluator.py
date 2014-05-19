@@ -47,6 +47,8 @@ def evaluate(ast, env):
         else:
             return evaluate(ast[3], env)
     elif ast[0] == 'define':
+        if len(ast) != 3:
+            raise LispError('Wrong number of arguments')
         env.set(ast[1], ast[2])
         return
 
