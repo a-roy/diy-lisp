@@ -28,7 +28,7 @@ def evaluate(ast, env):
     if is_boolean(ast) or is_integer(ast):
         return ast
     elif is_symbol(ast):
-        return evaluate(env.lookup(ast), env)
+        return env.lookup(ast)
     elif ast[0] == 'quote':
         return ast[1]
     elif ast[0] == 'atom':
@@ -51,7 +51,7 @@ def evaluate(ast, env):
             raise LispError('Wrong number of arguments')
         if not is_symbol(ast[1]):
             raise LispError('non-symbol: %s' % unparse(ast[1]))
-        env.set(ast[1], ast[2])
+        env.set(ast[1], evaluate(ast[2], env))
         return ""
 
     raise LispError('Symbol Unknown: %s' % ast[0])
