@@ -67,6 +67,11 @@ def evaluate(ast, env):
         ast[0] = env.lookup(ast[0])
     if is_closure(ast[0]):
         args = [evaluate(x, env) for x in ast[1:]]
+        num_args = len(args)
+        num_params = len(ast[0].params)
+        if num_args != num_params:
+            raise LispError('wrong number of arguments, expected %d got %d'
+                    % (num_params, num_args))
         bindings = dict(zip(ast[0].params, args))
         return evaluate(ast[0].body, ast[0].env.extend(bindings))
 
