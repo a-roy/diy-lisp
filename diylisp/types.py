@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from itertools import chain
+
 """
 This module holds some types we'll have use for along the way.
 
@@ -31,7 +33,7 @@ class Environment:
             raise LispError(symbol)
 
     def extend(self, variables):
-        raise NotImplementedError("DIY")
+        return Environment(dict(chain(self.variables.iteritems(), variables.iteritems())))
 
     def set(self, symbol, value):
         raise NotImplementedError("DIY")
