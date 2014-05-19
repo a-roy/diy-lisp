@@ -52,6 +52,6 @@ def evaluate(ast, env):
         if not is_symbol(ast[1]):
             raise LispError('non-symbol: %s' % unparse(ast[1]))
         env.set(ast[1], ast[2])
-        return
+        return ""
 
     raise LispError('Symbol Unknown: %s' % ast[0])
