@@ -25,7 +25,7 @@ class Environment:
         self.variables = variables if variables else {}
 
     def lookup(self, symbol):
-        raise NotImplementedError("DIY")
+        return self.variables[symbol]
 
     def extend(self, variables):
         raise NotImplementedError("DIY")
