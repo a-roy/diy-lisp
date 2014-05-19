@@ -25,8 +25,10 @@ math_operators = {
 
 def evaluate(ast, env):
     """Evaluate an Abstract Syntax Tree in the specified environment."""
-    if is_boolean(ast) or is_integer(ast) or is_symbol(ast):
+    if is_boolean(ast) or is_integer(ast):
         return ast
+    elif is_symbol(ast):
+        return env.lookup(ast)
     elif ast[0] == 'quote':
         return ast[1]
     elif ast[0] == 'atom':
