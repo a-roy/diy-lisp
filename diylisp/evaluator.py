@@ -53,5 +53,7 @@ def evaluate(ast, env):
             raise LispError('non-symbol: %s' % unparse(ast[1]))
         env.set(ast[1], evaluate(ast[2], env))
         return ""
+    elif ast[0] == 'lambda':
+        return Closure(env, ast[1], ast[2])
 
     raise LispError('Symbol Unknown: %s' % ast[0])
