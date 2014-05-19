@@ -49,6 +49,8 @@ def evaluate(ast, env):
     elif ast[0] == 'define':
         if len(ast) != 3:
             raise LispError('Wrong number of arguments')
+        if not is_symbol(ast[1]):
+            raise LispError('non-symbol: %s' % unparse(ast[1]))
         env.set(ast[1], ast[2])
         return
 
