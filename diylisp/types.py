@@ -36,4 +36,4 @@ class Environment:
         return Environment(dict(chain(self.variables.iteritems(), variables.iteritems())))
 
     def set(self, symbol, value):
-        raise NotImplementedError("DIY")
+        self.variables[symbol] = value
