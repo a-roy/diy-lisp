@@ -36,4 +36,7 @@ class Environment:
         return Environment(dict(chain(self.variables.iteritems(), variables.iteritems())))
 
     def set(self, symbol, value):
-        self.variables[symbol] = value
+        if symbol in self.variables:
+            raise LispError('already defined: %s' % symbol)
+        else:
+            self.variables[symbol] = value
