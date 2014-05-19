@@ -54,6 +54,8 @@ def evaluate(ast, env):
         env.set(ast[1], evaluate(ast[2], env))
         return ""
     elif ast[0] == 'lambda':
+        if len(ast) != 3:
+            raise LispError('Wrong number of arguments')
         if not is_list(ast[1]):
             raise LispError('Expected list: %s' % ast[1])
         return Closure(env, ast[1], ast[2])
