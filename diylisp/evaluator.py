@@ -30,7 +30,9 @@ def evaluate(ast, env):
     elif is_symbol(ast):
         return env.lookup(ast)
     elif is_closure(ast[0]):
-        return evaluate(ast[0].body, ast[0].env)
+        args = [evaluate(x, env) for x in ast[1:]]
+        return evaluate(ast[0].body,
+                ast[0].env.extend(dict(zip(ast[0].params, args))))
     elif ast[0] == 'quote':
         return ast[1]
     elif ast[0] == 'atom':
