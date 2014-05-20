@@ -57,7 +57,7 @@ def evaluate(ast, env):
         if len(ast) != 3:
             raise LispError('Wrong number of arguments')
         if not is_list(ast[1]):
-            raise LispError('Expected list: %s' % ast[1])
+            raise LispError('non-list: %s' % unparse(ast[1]))
         return Closure(env, ast[1], ast[2])
 
     if is_symbol(ast[0]):
