@@ -23,6 +23,10 @@ math_operators = {
         'mod' : operator.mod,
         '>' : operator.gt}
 
+def check_args(ast, num):
+    if len(ast) != num + 1:
+        raise LispError('Wrong number of arguments')
+
 def eval_math(ast, env):
     args = [evaluate(x, env) for x in ast[1:]]
     if not (is_integer(args[0]) and is_integer(args[1])):
@@ -43,16 +47,14 @@ def eval_if(ast, env):
     return evaluate(ast[2] if evaluate(ast[1], env) else ast[3], env)
 
 def eval_define(ast, env):
-    if len(ast) != 3:
-        raise LispError('Wrong number of arguments')
+    check_args(ast, 2)
     if not is_symbol(ast[1]):
         raise LispError('non-symbol: %s' % unparse(ast[1]))
     env.set(ast[1], evaluate(ast[2], env))
     return ""
 
 def eval_lambda(ast, env):
-    if len(ast) != 3:
-        raise LispError('Wrong number of arguments')
+    check_args(ast, 2)
     if not is_list(ast[1]):
         raise LispError('non-list: %s' % unparse(ast[1]))
     return Closure(env, ast[1], ast[2])
