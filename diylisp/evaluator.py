@@ -34,16 +34,20 @@ def eval_math(ast, env):
     return math_operators[ast[0]](args[0], args[1])
 
 def eval_quote(ast, env):
+    check_args(ast, 1)
     return ast[1]
 
 def eval_atom(ast, env):
+    check_args(ast, 1)
     return is_atom(evaluate(ast[1], env))
 
 def eval_eq(ast, env):
+    check_args(ast, 2)
     args = [evaluate(x, env) for x in ast[1:]]
     return is_atom(args[0]) and args[0] == args[1]
 
 def eval_if(ast, env):
+    check_args(ast, 3)
     return evaluate(ast[2] if evaluate(ast[1], env) else ast[3], env)
 
 def eval_define(ast, env):
