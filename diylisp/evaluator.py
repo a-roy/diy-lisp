@@ -23,6 +23,12 @@ math_operators = {
         'mod' : operator.mod,
         '>' : operator.gt}
 
+def eval_math(ast, env):
+    args = [evaluate(x, env) for x in ast[1:]]
+    if not (is_integer(args[0]) and is_integer(args[1])):
+        raise LispError('Arguments must be integers.')
+    return math_operators[ast[0]](args[0], args[1])
+
 def eval_quote(ast, env):
     return ast[1]
 
@@ -73,10 +79,7 @@ def evaluate(ast, env):
         if ast[0] in keywords:
             return keywords[ast[0]](ast, env)
         elif ast[0] in math_operators:
-            args = [evaluate(x, env) for x in ast[1:]]
-            if not (is_integer(args[0]) and is_integer(args[1])):
-                raise LispError('Arguments must be integers.')
-            return math_operators[ast[0]](args[0], args[1])
+            return eval_math(ast, env)
         else:
             ast[0] = env.lookup(ast[0])
 
