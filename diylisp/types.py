@@ -35,7 +35,8 @@ class Environment:
             raise LispError(symbol)
 
     def extend(self, variables):
-        return Environment(dict(chain(self.variables.iteritems(), variables.iteritems())))
+        return Environment(
+                dict(chain(self.variables.iteritems(), variables.iteritems())))
 
     def set(self, symbol, value):
         if symbol in self.variables:
