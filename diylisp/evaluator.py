@@ -45,10 +45,7 @@ def evaluate(ast, env):
             raise LispError('Arguments must be integers.')
         return math_operators[ast[0]](args[0], args[1])
     elif ast[0] == 'if':
-        if (evaluate(ast[1], env)):
-            return evaluate(ast[2], env)
-        else:
-            return evaluate(ast[3], env)
+        return evaluate(ast[2] if evaluate(ast[1], env) else ast[3], env)
     elif ast[0] == 'define':
         if len(ast) != 3:
             raise LispError('Wrong number of arguments')
