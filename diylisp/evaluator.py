@@ -29,9 +29,9 @@ def check_args(ast, num):
 
 def eval_math(ast, env):
     args = [evaluate(x, env) for x in ast[1:]]
-    if not (is_integer(args[0]) and is_integer(args[1])):
+    if not (reduce(operator.and_, [is_integer(x) for x in args])):
         raise LispError('Arguments must be integers.')
-    return math_operators[ast[0]](args[0], args[1])
+    return reduce(math_operators[ast[0]], args)
 
 def eval_quote(ast, env):
     check_args(ast, 1)
