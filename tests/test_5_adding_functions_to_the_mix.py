@@ -53,7 +53,7 @@ def test_lambda_arguments_are_lists():
 def test_lambda_number_of_arguments():
     """The `lambda` form should expect exactly two arguments."""
 
-    with assert_raises_regexp(LispError, "number of arguments"):
+    with assert_raises_regexp(LispError, "arguments"):
         evaluate(parse("(lambda (foo) (bar) (baz))"), Environment())
 
 def test_defining_lambda_with_error_in_body():

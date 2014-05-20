@@ -23,10 +23,6 @@ math_operators = {
         'mod' : operator.mod,
         '>' : operator.gt}
 
-def check_args(ast, num):
-    if len(ast) != num + 1:
-        raise LispError('Wrong number of arguments')
-
 def eval_math(ast, env):
     args = [evaluate(x, env) for x in ast[1:]]
     if not (reduce(operator.and_, [is_integer(x) for x in args])):
@@ -34,31 +30,29 @@ def eval_math(ast, env):
     return reduce(math_operators[ast[0]], args)
 
 def eval_quote(ast, env):
-    check_args(ast, 1)
+    assert_exp_length(ast, 2)
     return ast[1]
 
 def eval_atom(ast, env):
-    check_args(ast, 1)
+    assert_exp_length(ast, 2)
     return is_atom(evaluate(ast[1], env))
 
 def eval_eq(ast, env):
-    check_args(ast, 2)
+    assert_exp_length(ast, 3)
     args = [evaluate(x, env) for x in ast[1:]]
     return is_atom(args[0]) and args[0] == args[1]
 
 def eval_if(ast, env):
-    check_args(ast, 3)
+    assert_exp_length(ast, 4)
     return evaluate(ast[2] if evaluate(ast[1], env) else ast[3], env)
 
 def eval_define(ast, env):
-    check_args(ast, 2)
-    if not is_symbol(ast[1]):
-        raise LispError('non-symbol: %s' % unparse(ast[1]))
+    assert_valid_definition(ast[1:])
     env.set(ast[1], evaluate(ast[2], env))
     return ""
 
 def eval_lambda(ast, env):
-    check_args(ast, 2)
+    assert_exp_length(ast, 3)
     if not is_list(ast[1]):
         raise LispError('non-list: %s' % unparse(ast[1]))
     return Closure(env, ast[1], ast[2])
