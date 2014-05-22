@@ -58,3 +58,11 @@
       (if (empty (tail l))
         (cons (head l) r)
         (cons (head l) (append (tail l) r))))))
+
+(define filter
+  (lambda (x l)
+    (if (empty l)
+      l
+      (if (x (head l))
+        (cons (head l) (filter x (tail l)))
+        (filter x (tail l))))))
