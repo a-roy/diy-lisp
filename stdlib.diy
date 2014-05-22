@@ -38,3 +38,9 @@
 (define <
   (lambda (l r)
     (> r l)))
+
+(define sum
+  (lambda (l)
+    (if (empty l)
+      0
+      (+ (head l) (sum (tail l))))))
