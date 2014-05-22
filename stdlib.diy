@@ -72,3 +72,9 @@
     (if (empty l)
       l
       (cons (x (head l)) (map x (tail l))))))
+
+(define reverse
+  (lambda (l)
+    (if (or (empty l) (empty (tail l)))
+      l
+      (append (reverse (tail l)) (cons (head l) '())))))
