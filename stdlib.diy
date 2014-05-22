@@ -78,3 +78,9 @@
     (if (or (empty l) (empty (tail l)))
       l
       (append (reverse (tail l)) (cons (head l) '())))))
+
+(define range
+  (lambda (s e)
+    (if (> s e)
+      '()
+      (cons s (range (+ 1 s) e)))))
