@@ -6,3 +6,8 @@
 
 ;; DIY -- Implement the rest of your standard library
 ;; here as part 7 of the workshop.
+
+(define or
+  (lambda (l r)
+    (if l #t
+      (if r #t #f))))
