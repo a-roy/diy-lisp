@@ -62,6 +62,11 @@ def eval_cons(ast, env):
     args = [evaluate(x, env) for x in ast[1:]]
     return [args[0]] + args[1]
 
+def eval_head(ast, env):
+    assert_exp_length(ast, 2)
+    args = [evaluate(x, env) for x in ast[1:]]
+    return args[0][0]
+
 keywords = {
         'quote' : eval_quote,
         'atom' : eval_atom,
@@ -69,7 +74,8 @@ keywords = {
         'if' : eval_if,
         'define' : eval_define,
         'lambda' : eval_lambda,
-        'cons' : eval_cons
+        'cons' : eval_cons,
+        'head' : eval_head
         }
 
 def evaluate(ast, env):
