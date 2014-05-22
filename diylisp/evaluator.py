@@ -65,6 +65,8 @@ def eval_cons(ast, env):
 def eval_head(ast, env):
     assert_exp_length(ast, 2)
     args = [evaluate(x, env) for x in ast[1:]]
+    if len(args[0]) == 0:
+        raise LispError('empty list')
     return args[0][0]
 
 keywords = {
