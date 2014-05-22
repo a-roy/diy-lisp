@@ -11,19 +11,19 @@
   (lambda (l r)
     (if l
       #t
-      (if r #t #f))))
+      r)))
 
 (define and
   (lambda (l r)
     (if l
-      (if r #t #f)
+      r
       #f)))
 
 (define xor
   (lambda (l r)
     (if l
       (if r #f #t)
-      (if r #t #f))))
+      r)))
 
 (define >=
   (lambda (l r)
