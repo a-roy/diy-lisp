@@ -30,3 +30,7 @@
     (if (> l r)
       #t
       (if (> r l) #f #t))))
+
+(define <=
+  (lambda (l r)
+    (if (> l r) #f #t)))
