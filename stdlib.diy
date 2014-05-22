@@ -11,3 +11,9 @@
   (lambda (l r)
     (if l #t
       (if r #t #f))))
+
+(define and
+  (lambda (l r)
+    (if l
+      (if r #t #f)
+      #f)))
