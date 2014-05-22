@@ -34,3 +34,7 @@
 (define <=
   (lambda (l r)
     (if (> l r) #f #t)))
+
+(define <
+  (lambda (l r)
+    (> r l)))
