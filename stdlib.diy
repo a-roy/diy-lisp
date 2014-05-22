@@ -9,7 +9,8 @@
 
 (define or
   (lambda (l r)
-    (if l #t
+    (if l
+      #t
       (if r #t #f))))
 
 (define and
