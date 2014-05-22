@@ -57,13 +57,19 @@ def eval_lambda(ast, env):
         raise LispError('non-list: %s' % unparse(ast[1]))
     return Closure(env, ast[1], ast[2])
 
+def eval_cons(ast, env):
+    assert_exp_length(ast, 3)
+    args = [evaluate(x, env) for x in ast[1:]]
+    return [args[0]] + args[1]
+
 keywords = {
         'quote' : eval_quote,
         'atom' : eval_atom,
         'eq' : eval_eq,
         'if' : eval_if,
         'define' : eval_define,
-        'lambda' : eval_lambda
+        'lambda' : eval_lambda,
+        'cons' : eval_cons
         }
 
 def evaluate(ast, env):
