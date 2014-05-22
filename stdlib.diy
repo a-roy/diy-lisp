@@ -23,3 +23,9 @@
     (if l
       (if r #f #t)
       (if r #t #f))))
+
+(define >=
+  (lambda (l r)
+    (if (> l r)
+      #t
+      (if (> r l) #f #t))))
