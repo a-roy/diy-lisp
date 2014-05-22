@@ -66,3 +66,9 @@
       (if (x (head l))
         (cons (head l) (filter x (tail l)))
         (filter x (tail l))))))
+
+(define map
+  (lambda (x l)
+    (if (empty l)
+      l
+      (cons (x (head l)) (map x (tail l))))))
