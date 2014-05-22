@@ -69,6 +69,11 @@ def eval_head(ast, env):
         raise LispError('empty list')
     return args[0][0]
 
+def eval_tail(ast, env):
+    assert_exp_length(ast, 2)
+    args = [evaluate(x, env) for x in ast[1:]]
+    return args[0][1:]
+
 keywords = {
         'quote' : eval_quote,
         'atom' : eval_atom,
@@ -77,7 +82,8 @@ keywords = {
         'define' : eval_define,
         'lambda' : eval_lambda,
         'cons' : eval_cons,
-        'head' : eval_head
+        'head' : eval_head,
+        'tail' : eval_tail
         }
 
 def evaluate(ast, env):
