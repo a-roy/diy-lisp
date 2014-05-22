@@ -50,3 +50,11 @@
     (if (empty l)
       0
       (+ 1 (length (tail l))))))
+
+(define append
+  (lambda (l r)
+    (if (empty l)
+      r
+      (if (empty (tail l))
+        (cons (head l) r)
+        (cons (head l) (append (tail l) r))))))
