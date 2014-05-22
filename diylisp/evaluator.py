@@ -74,6 +74,11 @@ def eval_tail(ast, env):
     args = [evaluate(x, env) for x in ast[1:]]
     return args[0][1:]
 
+def eval_empty(ast, env):
+    assert_exp_length(ast, 2)
+    args = [evaluate(x, env) for x in ast[1:]]
+    return (len(args[0]) == 0)
+
 keywords = {
         'quote' : eval_quote,
         'atom' : eval_atom,
@@ -83,7 +88,8 @@ keywords = {
         'lambda' : eval_lambda,
         'cons' : eval_cons,
         'head' : eval_head,
-        'tail' : eval_tail
+        'tail' : eval_tail,
+        'empty' : eval_empty
         }
 
 def evaluate(ast, env):
